@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace saga.util
 {
@@ -14,15 +15,18 @@ namespace saga.util
 		protected static extern bool EnumChildWindows(IntPtr hwndParent, EnumWindowProc lpEnumFunc, IntPtr lParam);
 
 		protected delegate bool Win32Callback(IntPtr hwnd, IntPtr lParam);
-		[DllImport("user32.Dll")]
+
+		[DllImport("user32.dll")]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		protected static extern bool EnumChildWindows(IntPtr parentHandle, Win32Callback callback, IntPtr lParam);
 
-		[DllImport("user32.dll")]
+		[DllImport("user32.dll", SetLastError = true)]
 		protected static extern IntPtr GetWindow(IntPtr hWnd, uint uCmd);
-		[DllImport("user32.dll")]
+
+		[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
 		private static extern bool SetWindowText(IntPtr hWnd, String lpString);
-		[DllImport("user32.dll", EntryPoint = "FindWindow")]
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
 		protected static extern IntPtr FindWindow(String lpszClass, String lpszWindow);
 
 		// ハンドル保持用リスト
@@ -78,7 +82,6 @@ namespace saga.util
                 this.hWnd = GetWindowHandle(windowName+"*");
                 if (hWnd.Equals((IntPtr)0))
                 {
-
                     string str = "\"" + windowName + "\"は起動していません";
                     throw new ApplicationException(str);
                 }
