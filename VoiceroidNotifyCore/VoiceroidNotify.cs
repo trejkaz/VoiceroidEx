@@ -12,17 +12,17 @@ namespace saga.voiceroid
 	 */
 	public abstract class VoiceroidNotify
 	{
-		[DllImport("user32.dll", EntryPoint = "SendMessage")]
+		[DllImport("user32.dll", SetLastError = true)]
 		protected static extern IntPtr SendMessage(IntPtr hWnd, IntPtr Msg, IntPtr wParam, IntPtr lParam);
-		[DllImport("user32.dll", EntryPoint = "SendMessage")]
+		[DllImport("user32.dll", SetLastError = true)]
 		protected static extern IntPtr SendMessage(IntPtr hWnd, IntPtr Msg, IntPtr wParam, string lParam);
-		[DllImport("user32.dll", EntryPoint = "PostMessage")]
+		[DllImport("user32.dll", SetLastError = true)]
 		protected static extern IntPtr PostMessage(IntPtr hWnd, IntPtr Msg, IntPtr wParam, IntPtr lParam);
-		[DllImport("user32.dll", EntryPoint = "PostMessage")]
+		[DllImport("user32.dll", SetLastError = true)]
 		protected static extern IntPtr PostMessage(IntPtr hWnd, IntPtr Msg, IntPtr wParam, string lParam);
-		[DllImport("user32.dll", EntryPoint = "SetFocus")]
+		[DllImport("user32.dll", SetLastError = true)]
 		protected static extern IntPtr SetFocus(IntPtr hWnd);
-		[DllImport("user32.dll", EntryPoint = "SetWindowText")]
+		[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
 		protected static extern Boolean SetWindowText(IntPtr hWnd, string lpString);
 		[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
 		protected static extern IntPtr SendMessageTimeout(
